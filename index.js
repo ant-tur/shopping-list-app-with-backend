@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const app = express();
 
+app.use(express.static('dist'));
 app.use(cors());
 app.use(express.json());
 
@@ -44,9 +45,9 @@ let products = [
   },
 ];
 
-app.get('/', (request, response) => {
-  response.send('<h1>Hello World!</h1>');
-});
+// app.get('/', (request, response) => {
+//   response.send('<h1>Hello World!</h1>');
+// });
 
 app.get('/api/products', (request, response) => {
   response.json(products);
