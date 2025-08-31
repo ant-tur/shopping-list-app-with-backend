@@ -1,10 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
-const cors = require('cors');
+const Product = require('./models/product');
+
 const app = express();
 
 app.use(express.static('dist'));
-app.use(cors());
 app.use(express.json());
 
 morgan.token('body', req => {
@@ -14,43 +15,42 @@ morgan.token('body', req => {
 
   return '';
 });
+
 app.use(
   morgan(':method :url :status :res[content-length] - :response-time ms :body')
 );
 
-let products = [
-  {
-    id: '1',
-    name: 'Water',
-    amount: 1,
-    checked: false,
-  },
-  {
-    id: '2',
-    name: 'Bread',
-    amount: 1,
-    checked: false,
-  },
-  {
-    id: '3',
-    name: 'eggs',
-    amount: 20,
-    checked: false,
-  },
-  {
-    id: '4',
-    name: 'hello',
-    amount: 1,
-    checked: false,
-  },
-];
-
-// app.get('/', (request, response) => {
-//   response.send('<h1>Hello World!</h1>');
-// });
+// let products = [
+//   {
+//     id: '1',
+//     name: 'Water',
+//     amount: 1,
+//     checked: false,
+//   },
+//   {
+//     id: '2',
+//     name: 'Bread',
+//     amount: 1,
+//     checked: false,
+//   },
+//   {
+//     id: '3',
+//     name: 'eggs',
+//     amount: 20,
+//     checked: false,
+//   },
+//   {
+//     id: '4',
+//     name: 'hello',
+//     amount: 1,
+//     checked: false,
+//   },
+// ];
 
 app.get('/api/products', (request, response) => {
-  response.json(products);
+  Product.find({}).then(products => {
+    response.json(products);
+  });
 });
 
 app.get('/api/products/:id', (request, response) => {
@@ -104,7 +104,7 @@ const unknownEndpoint = (request, response) => {
 
 app.use(unknownEndpoint);
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
