@@ -15,7 +15,7 @@ mongoose
   });
 
 const productSchema = new mongoose.Schema({
-  name: { type: String, required: true, trim: true },
+  name: { type: String, minLength: 3, required: true, trim: true },
   amount: { type: Number, min: 1 },
   checked: { type: Boolean, default: false },
 });
