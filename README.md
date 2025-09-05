@@ -29,13 +29,21 @@ Users can add, edit, check off, and delete products from their shopping list.
 
 ```text
 shopping-list-backend/
-├── index.js            # Express server
+├── controllers/
+│   └── products.js      # Routes & controllers for products
+├── dist/                # Compiled React frontend (served by Express)
 ├── models/
-│   └── product.js      # Mongoose schema
-├── dist/               # Compiled React frontend (served by Express)
-├── .env                # Environment variables
+│   └── product.js       # Mongoose schema
+├── utils/
+│   ├── config.js        # Configuration (env variables, DB URI)
+│   ├── logger.js
+│   └── middleware.js    # Error handlers & middleware
+├── .env                 # Environment variables
+├── .gitignore
+├── app.js               # Express app setup
+├── index.js             # Entry point (server start)
 ├── package.json
-└── ...
+└── README.md
 ```
 
 ---
